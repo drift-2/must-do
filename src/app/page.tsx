@@ -4,7 +4,7 @@ import Container from "@/components/ui/container";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronRightSquare } from "lucide-react";
+import { ChevronRightSquare, Plus } from "lucide-react";
 
 export default function Page() {
   const [inputValue, setInputValue] = useState("");
@@ -47,18 +47,26 @@ export default function Page() {
 
   return (
     <Container className="min-h-screen">
-      <div className="mx-auto mt-24 max-w-md">
-        <div>
-          <Input
-            type="text"
-            placeholder="Buy flowers "
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          />
-          <Button className="mt-3 w-full" onClick={handleAddItems}>
-            Add
-          </Button>
+      <div className="mx-auto mt-24 max-w-lg">
+        <h1 className="text-3xl font-semibold ">Must Do</h1>
+        <p className="mt-2 text-neutral-400">
+          An app that transforms your procrastination into a to-do celebration!
+        </p>
+
+        <div className="mt-5">
+          <div className="flex gap-2">
+            <Input
+              type="text"
+              placeholder="Buy flowers "
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
+            <Button className="aspect-square w-14" onClick={handleAddItems}>
+              <Plus />
+              {/* <span>Add</span> */}
+            </Button>
+          </div>
           {items.length > 0 ? (
             <Button
               className="mt-3 w-full bg-red-500/70 hover:bg-red-400/90"
@@ -70,11 +78,11 @@ export default function Page() {
         </div>
 
         <div className="mt-10">
-          <h1 className="text-2xl font-semibold">Added Items</h1>
           {items.length === 0 ? (
             <p className="mt-3 text-neutral-400">No items added yet.</p>
           ) : (
             <ul className="mt-2">
+              <h1 className="text-xl font-semibold">Added Items</h1>
               {items.map((item, index) => (
                 <ul className="mt-3 flex items-center justify-between rounded-2xl bg-card px-4 py-2">
                   <div className="flex gap-2">
