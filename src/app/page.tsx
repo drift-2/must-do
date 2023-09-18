@@ -93,9 +93,7 @@ export default function Page() {
                       className="text-violet-300"
                       strokeWidth={1.5}
                     />
-                    <li className="" key={index}>
-                      {item}
-                    </li>
+                    <li className="">{item}</li>
                   </div>
                   <Button
                     className="text-red-400"
