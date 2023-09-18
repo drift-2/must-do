@@ -84,7 +84,10 @@ export default function Page() {
             <ul className="mt-2">
               <h1 className="text-xl font-semibold">Added Items</h1>
               {items.map((item, index) => (
-                <ul className="mt-3 flex items-center justify-between rounded-2xl bg-card px-4 py-2">
+                <ul
+                  key={index}
+                  className="mt-3 flex items-center justify-between rounded-2xl bg-card px-4 py-2"
+                >
                   <div className="flex gap-2">
                     <ChevronRightSquare
                       className="text-violet-300"
