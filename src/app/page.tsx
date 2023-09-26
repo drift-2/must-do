@@ -4,30 +4,31 @@ import Container from "@/components/ui/container";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronRightSquare, Plus } from "lucide-react";
+import { ChevronRight, Plus } from "lucide-react";
 
 export default function Page() {
   const [inputValue, setInputValue] = useState("");
-  const [items, setItems] = useState<string[]>([]);
+  const [todos, setTodos] = useState<string[]>([]);
 
   useEffect(() => {
     const getTodoItems = JSON.parse(localStorage.getItem("todo-items") || "[]");
-    setItems(getTodoItems);
+    setTodos(getTodoItems);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("todo-items", JSON.stringify(items));
-  }, [items]);
-
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setInputValue(event.target.value);
-  }
+    localStorage.setItem("todo-items", JSON.stringify(todos));
+  }, [todos]);
 
   function handleAddItems() {
     if (inputValue.trim() !== "") {
-      setItems([...items, inputValue]);
+      setTodos([...todos, inputValue]);
       setInputValue("");
     }
+  }
+
+  function handleRemoveItem(index: number) {
+    const updatedItems = todos.filter((_, i) => i !== index);
+    setTodos(updatedItems);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -36,13 +37,8 @@ export default function Page() {
     }
   }
 
-  function handleRemoveItem(index: number) {
-    const updatedItems = items.filter((_, i) => i !== index);
-    setItems(updatedItems);
-  }
-
   function handleRemoveAll() {
-    setItems([]);
+    setTodos([]);
   }
 
   return (
@@ -59,17 +55,18 @@ export default function Page() {
               type="text"
               placeholder="Buy flowers "
               value={inputValue}
-              onChange={handleInputChange}
+              onChange={(event) => {
+                setInputValue(event.target.value);
+              }}
               onKeyDown={handleKeyDown}
             />
             <Button className="aspect-square w-14" onClick={handleAddItems}>
               <Plus />
-              {/* <span>Add</span> */}
             </Button>
           </div>
-          {items.length > 0 ? (
+          {todos.length > 0 ? (
             <Button
-              className="mt-3 w-full bg-red-500/70 hover:bg-red-400/90"
+              className="mt-3 w-full  bg-red-500/70"
               onClick={handleRemoveAll}
             >
               Remove All
@@ -78,23 +75,20 @@ export default function Page() {
         </div>
 
         <div className="mt-10">
-          {items.length === 0 ? (
+          {todos.length === 0 ? (
             <p className="mt-3 text-neutral-400">No items added yet.</p>
           ) : (
             <ul className="mt-2">
               <h1 className="text-xl font-semibold">Added Items</h1>
-              {items.map((item, index) => (
+              {todos.map((item, index) => (
                 <ul
                   key={index}
                   className="mt-3 flex items-center justify-between rounded-2xl bg-card px-4 py-2"
                 >
-                  <div className="flex gap-2">
-                    <ChevronRightSquare
-                      className="text-violet-300"
-                      strokeWidth={1.5}
-                    />
-                    <li className="">{item}</li>
-                  </div>
+                  <li className="flex items-center justify-center">
+                    <ChevronRight />
+                    <span>{item}</span>
+                  </li>
                   <Button
                     className="text-red-400"
                     variant="link"
