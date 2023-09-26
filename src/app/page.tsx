@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronRight, Plus } from "lucide-react";
 
 export default function Page() {
-  const [inputValue, setInputValue] = useState("");
+  const [todoInput, setTodoInput] = useState("");
   const [todos, setTodos] = useState<string[]>([]);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export default function Page() {
   }, [todos]);
 
   function handleAddItems() {
-    if (inputValue.trim() !== "") {
-      setTodos([...todos, inputValue]);
-      setInputValue("");
+    if (todoInput.trim() !== "") {
+      setTodos([...todos, todoInput]);
+      setTodoInput("");
     }
   }
 
@@ -54,9 +54,9 @@ export default function Page() {
             <Input
               type="text"
               placeholder="Buy flowers "
-              value={inputValue}
+              value={todoInput}
               onChange={(event) => {
-                setInputValue(event.target.value);
+                setTodoInput(event.target.value);
               }}
               onKeyDown={handleKeyDown}
             />
