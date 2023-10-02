@@ -10,6 +10,6 @@ export default function Container({
   className = "",
 }: ContainerProps) {
   return (
-    <main className={cn("mx-auto max-w-7xl px-5", className)}>{children}</main>
+    <main className={cn("mx-auto max-w-xl px-5", className)}>{children}</main>
   );
 }
