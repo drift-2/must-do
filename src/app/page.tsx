@@ -62,7 +62,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="sticky top-0 z-40 rounded-md bg-transparent pb-5 pt-20 backdrop-blur-2xl">
+      <div className="sticky top-0 z-40 rounded-md bg-transparent pt-20 pb-5 backdrop-blur-2xl">
         <Container>
           <h1 className="text-3xl font-semibold">Must Do</h1>
           <p className="mt-2 text-neutral-400">
@@ -104,40 +104,38 @@ export default function Page() {
           <ul className="mt-2">
             <h1 className="text-xl font-semibold">Added Items</h1>
             {todos.map((item, index) => (
-              <ul
-                key={index}
-                className="mt-3 flex items-center justify-between rounded-2xl bg-card px-4 py-2"
-              >
-                <li className="flex items-center justify-center gap-2">
-                  <Checkbox
-                    onClick={() =>
-                      handleCompleteTodoItem(item.id, !item.completed)
-                    }
-                  />
-                  <span
-                    className={cn(
-                      item.completed && "text-neutral-500 line-through",
-                    )}
-                  >
-                    {item.todoItem}
-                  </span>
-                </li>
-
-                <div>
-                  {!item.completed && (
-                    <span className="text-xs font-semibold text-neutral-500">
-                      Added: {moment(item.createdAt).fromNow()}
+              <div className="bg-card mt-3 rounded-2xl px-4 py-2" key={index}>
+                <ul className="flex items-center justify-between gap-2">
+                  <li className="flex items-center justify-center gap-2">
+                    <Checkbox
+                      onClick={() =>
+                        handleCompleteTodoItem(item.id, !item.completed)
+                      }
+                    />
+                    <span
+                      className={cn(
+                        "",
+                        item.completed && "text-neutral-500 line-through",
+                      )}
+                    >
+                      {item.todoItem}
                     </span>
-                  )}
+                  </li>
+                </ul>
+                <div className="mt-2 flex items-center justify-between">
+                  <div className={cn("text-xs font-semibold text-neutral-500")}>
+                    Added: {moment(item.createdAt).fromNow()}
+                  </div>
+
                   <Button
-                    className="text-red-400"
+                    className="h-fit p-0 text-red-400"
                     variant="link"
                     onClick={() => handleRemoveTodo(item.id)}
                   >
                     Remove
                   </Button>
                 </div>
-              </ul>
+              </div>
             ))}
           </ul>
         )}
